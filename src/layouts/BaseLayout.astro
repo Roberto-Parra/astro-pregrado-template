@@ -3,7 +3,16 @@ const {
   title = "Proyecto",
   description = "Plantilla base con estilos y fuentes.",
   headerTitle = "Título del documento",
+  headerSubtitle = "",
+  date,
 } = Astro.props.frontmatter ?? Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat("es-CL", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+}).format(new Date());
+const headerDate = date ?? formattedDate;
 
 const fontRegularSrc =
   "url('/fonts/made_tommy_regular-webfont.woff') format('woff')";
@@ -47,7 +56,7 @@ const fontBoldSrc =
         --uai-table-stripe: #f1f4f8;
         --uai-table-hover: #e6ebf2;
         --uai-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
-        --uai-header-height: 88px;
+        --uai-header-height: 120px;
       }
       :root,
       html,
@@ -92,14 +101,31 @@ const fontBoldSrc =
         gap: 12px;
         position: relative;
       }
-      .header-title {
+      .header-text {
         flex: 1;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .header-title {
         font-size: 22px;
         font-weight: 700;
         letter-spacing: 0.4px;
         margin: 0;
         color: var(--uai-primary);
+      }
+      .header-subtitle {
+        margin: 0;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        color: var(--uai-accent);
+        text-transform: uppercase;
+      }
+      .header-date {
+        margin: 0;
+        font-size: 13px;
+        color: var(--uai-muted);
       }
       .page-content {
         padding-top: var(--uai-header-height);
@@ -108,7 +134,7 @@ const fontBoldSrc =
         .logo-container {
           flex-direction: column;
         }
-        .header-title {
+        .header-text {
           text-align: center;
         }
       }
@@ -158,7 +184,13 @@ const fontBoldSrc =
     <header class="site-header">
       <div class="logo-container">
         <img class="header-logo" src="/pregrado.png" alt="Universidad Adolfo Ibanez" />
-        <h1 class="header-title">{headerTitle}</h1>
+        <div class="header-text">
+          <h1 class="header-title">{headerTitle}</h1>
+          {headerSubtitle ? (
+            <p class="header-subtitle">{headerSubtitle}</p>
+          ) : null}
+          {headerDate ? <p class="header-date">{headerDate}</p> : null}
+        </div>
       </div>
     </header>
     <div class="page-content">
