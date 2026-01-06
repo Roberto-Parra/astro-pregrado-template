@@ -1,0 +1,174 @@
+---
+const {
+  title = "Proyecto",
+  description = "Plantilla base con estilos y fuentes.",
+  headerTitle = "Título del documento",
+} = Astro.props;
+
+const fontRegularSrc =
+  "url('/fonts/made_tommy_regular-webfont.woff') format('woff')";
+const fontBoldSrc =
+  "url('/fonts/made_tommy_bold-webfont.woff') format('woff')";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <style define:vars={{ fontRegularSrc, fontBoldSrc }} is:global>
+      @font-face {
+        font-family: "MADE Tommy";
+        src: var(--fontRegularSrc);
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "MADE Tommy";
+        src: var(--fontBoldSrc);
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      :root {
+        --uai-primary: #000000;
+        --uai-accent: #2f4c73;
+        --uai-bg: #f6f7fb;
+        --uai-muted: #5b6470;
+        --uai-banner: #7692b4;
+        --uai-ink: #0b0b0b;
+        --uai-card: #ffffff;
+        --uai-table-border: #d8deea;
+        --uai-table-stripe: #f1f4f8;
+        --uai-table-hover: #e6ebf2;
+        --uai-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+        --uai-header-height: 88px;
+      }
+      :root,
+      html,
+  body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "MADE Tommy", "Avenir Next", "Avenir", "Trebuchet MS",
+          "Segoe UI", sans-serif;
+        font-size: 18px;
+        line-height: 1.7;
+        background: radial-gradient(1000px 420px at 20% -10%, #edf1f7 0%, transparent
+              60%),
+          radial-gradient(900px 420px at 120% 10%, #f3f6fb 0%, transparent 55%),
+          var(--uai-bg);
+        color: var(--uai-ink);
+      }
+      .site-header {
+        background: var(--uai-card);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        border-bottom: 1px solid #e5e7eb;
+        border-top: 8px solid var(--uai-banner);
+      }
+      .header-logo {
+        height: 54px;
+        width: auto;
+        display: block;
+      }
+      .logo-container { 
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 14px 28px 10px;
+        min-height: calc(var(--uai-header-height) - 8px);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+      }
+      .header-title {
+        flex: 1;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        margin: 0;
+        color: var(--uai-primary);
+      }
+      .page-content {
+        padding-top: var(--uai-header-height);
+      }
+      @media (max-width: 720px) {
+        .logo-container {
+          flex-direction: column;
+        }
+        .header-title {
+          text-align: center;
+        }
+      }
+      .main-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 28px 28px 32px;
+        background: var(--uai-card);
+        border-radius: 18px;
+        box-shadow: var(--uai-shadow);
+        animation: rise 0.6s ease-out both;
+      }
+      .title {
+        font-size: 24px;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        color: var(--uai-primary);
+        letter-spacing: 0.6px;
+        font-weight: 700;
+      }
+      p {
+        text-align: justify;
+        font-size: 16px;
+      }
+      .footer {
+        text-align: center;
+        color: var(--uai-muted);
+        font-size: 13px;
+        margin: 26px 0 6px;
+      }
+      @keyframes rise {
+        from {
+          transform: translateY(12px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="logo-container">
+        <img class="header-logo" src="/pregrado.png" alt="Universidad Adolfo Ibanez" />
+        <h1 class="header-title">{headerTitle}</h1>
+      </div>
+    </header>
+    <div class="page-content">
+      <main class="main-container">
+        <slot />
+      </main>
+      
+      <p class="footer">
+        <em>Planificación Decanato de Pregrado - Universidad Adolfo Ibáñez</em>
+      </p>
+    </div>
+  </body>
+</html>
