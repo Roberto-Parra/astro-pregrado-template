@@ -3,7 +3,7 @@ const {
   title = "Proyecto",
   description = "Plantilla base con estilos y fuentes.",
   headerTitle = "Título del documento",
-} = Astro.props;
+} = Astro.props.frontmatter ?? Astro.props;
 
 const fontRegularSrc =
   "url('/fonts/made_tommy_regular-webfont.woff') format('woff')";
